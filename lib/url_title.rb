@@ -17,7 +17,7 @@ class UrlTitle
       debug "Fetching #{url}"
 
       if res.get_fields('Content-Type')[0] =~ /text\/html/
-        title = res.body.scan(/<title>(.*?)<\/title>/)[0][0]
+        title = res.body.gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
         m.reply "#{m.user.nick}: #{title}" if not title.empty?
       end
     end
