@@ -1,5 +1,5 @@
 require 'net/https'
-require 'pry'
+require 'opengraph'
 
 class UrlTitle
   include Cinch::Plugin
@@ -12,13 +12,19 @@ class UrlTitle
 
   def fetch_title(m)
     m.message.scan(/https?:\/\/[^'" ]+/).each do |url|
-      res = Net::HTTP.get_response(URI(url))
+      resource = OpenGraph.fetch(url)
 
       debug "Fetching #{url}"
 
-      if res.get_fields('Content-Type')[0] =~ /text\/html/
-        title = res.body.gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
-        m.reply "#{m.user.nick}: #{title}" if not title.empty?
+      if resource
+        m.reply "#{m.user.nick}: #{resource.title}" if not resource.title.empty?
+        m.reply resource.description if not resource.description.empty?
+      else
+        resource = Net::HTTP.get_response(URI(url))
+        if resource.get_fields('Content-Type')[0] =~ /text\/html/
+          title = resource.body.gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
+          m.reply "#{m.user.nick}: #{title}" if not title.empty?
+        end
       end
     end
   end
