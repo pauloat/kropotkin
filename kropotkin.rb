@@ -1,4 +1,5 @@
 require 'cinch'
+require './lib/humanize'
 require './lib/url_title'
 require './lib/empathy'
 
@@ -13,13 +14,17 @@ kropotkin = Cinch::Bot.new do
   end
 
   # Saludar
-  on :message, /o\// do |m|
+  on :message, /^o\// do |m|
     m.reply "o/"
+  end
+
+  on :message, /bug/ do |m|
+    m.reply "patches welcome", true
   end
 
   # Corregir
   on :message, /open ?source/ do |m|
-    m.reply "#{m.user.nick}: no querrás decir software libre?"
+    m.reply "no querrás decir software libre?", true
   end
 end
 

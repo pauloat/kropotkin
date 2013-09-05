@@ -8,7 +8,7 @@ class Empathy
 
   match /:[c\(]/, use_prefix: false, method: :hug
   def hug(m)
-    m.channel.action "abraza a #{m.user.nick} :)"
+    Timer(rand(10), shots: 1) { m.channel.action "abraza a #{m.user.nick} :)" }
   end
 
   match /\\o\//, use_prefix: false, method: :cheer
