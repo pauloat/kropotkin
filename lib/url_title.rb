@@ -12,6 +12,15 @@ class UrlTitle
 
   def fetch_title(m)
     m.message.scan(/https?:\/\/[^'" ]+/).each do |url|
+      uri = URI(url)
+
+      # Ignorar lo que no sea html
+      Net::HTTP.start uri.host, uri.port, :use_ssl => uri.scheme == 'https' do |http|
+        if not http.head(uri.path)['content-type'] =~ /text\/html/
+          return
+        end
+      end
+
       resource = OpenGraph.fetch(url)
 
       debug "Fetching #{url}"
@@ -20,11 +29,8 @@ class UrlTitle
         m.reply "#{m.user.nick}: #{resource.title}" if not resource.title.empty?
         m.reply resource.description if not resource.description.empty?
       else
-        resource = Net::HTTP.get_response(URI(url))
-        if resource.get_fields('Content-Type')[0] =~ /text\/html/
-          title = resource.body.gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
-          m.reply "#{m.user.nick}: #{title}" if not title.empty?
-        end
+        title = Net::HTTP.get(uri).gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
+        m.reply "#{m.user.nick}: #{title}" if not title.empty?
       end
     end
   end
