@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'net/https'
 require 'opengraph'
 
@@ -12,6 +13,7 @@ class UrlTitle
 
   def fetch_title(m)
     m.message.scan(/https?:\/\/[^'" ]+/).each do |url|
+      url = URI.encode(url)
       uri = URI(url)
 
       # Ignorar lo que no sea html
