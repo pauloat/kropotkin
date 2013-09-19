@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'cinch/timer'
 # Agregar un temporizador para que las respuestas no sean inmediatas y
 # parezca más humano

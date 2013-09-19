@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'cinch'
 require './lib/humanize'
 require './lib/url_title'

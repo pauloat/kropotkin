@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Empathy
   include Cinch::Plugin
 
