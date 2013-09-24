@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'net/https'
 require 'opengraph'
-require 'cgi'
+require 'htmlentities'
 
 class UrlTitle
   include Cinch::Plugin
@@ -29,11 +29,15 @@ class UrlTitle
       debug "Fetching #{url}"
 
       if resource
-        m.reply "#{m.user.nick}: #{CGI.unescapeHTML(resource.title)}" if not resource.title.empty?
+        m.reply "#{m.user.nick}: #{HTMLEntities.new.decode(resource.title)}" if not resource.title.empty?
+        debug resource.title
+        debug HTMLEntities.new.decode(resource.title)
         m.reply resource.description if not resource.description.empty?
       else
         title = Net::HTTP.get(uri).gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
-        m.reply "#{m.user.nick}: #{CGI.unescapeHTML(title)}" if not title.empty?
+        debug title
+        debug HTMLEntities.new.decode(title)
+        m.reply "#{m.user.nick}: #{HTMLEntities.new.decode(title)}" if not title.empty?
       end
     end
   end
