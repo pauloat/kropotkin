@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+mkdir -p tmp
+pushd $(dirname "$(realpath "$0")")
+
+test -f tmp/kropotkin.pid && pkill --pidfile tmp/kropotkin.pid || true
+
+bundle exec ruby kropotkin.rb &
+echo $! >tmp/kropotkin.pid
