@@ -11,7 +11,7 @@ class UrlTitle
   match /https?:\/\/[^'"]+/, use_prefix: false, method: :fetch_title
 
   def fetch_title(m)
-    m.message.scan(/https?:\/\/[^'" ]+/).each do |url|
+    m.message.scan(/https?:\/\/[^'" #]+/).each do |url|
       resource = OpenGraph.fetch(url)
 
       debug "Fetching #{url}"
