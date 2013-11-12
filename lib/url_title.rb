@@ -39,7 +39,7 @@ class UrlTitle
         debug HTMLEntities.new.decode(resource.title)
         m.reply resource.description if not resource.description.empty?
       else
-        title = Net::HTTP.get(uri).gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/)[0][0]
+        title = Net::HTTP.get(uri).gsub(/\n/, ' ').squeeze(' ').scan(/<title>(.*?)<\/title>/i)[0][0]
         debug title
         debug HTMLEntities.new.decode(title)
         m.reply "#{m.user.nick}: #{HTMLEntities.new.decode(title)}" if not title.empty?
