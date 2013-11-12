@@ -3,6 +3,7 @@ require 'cinch'
 require './lib/humanize'
 require './lib/url_title'
 require './lib/empathy'
+require './lib/invite.rb'
 
 kropotkin = Cinch::Bot.new do
   configure do |c|
@@ -11,7 +12,7 @@ kropotkin = Cinch::Bot.new do
     c.port = 6697
     c.ssl.use = true
     c.channels = [ "#test", "#lab" ]
-    c.plugins.plugins = [ UrlTitle, Empathy ]
+    c.plugins.plugins = [ UrlTitle, Empathy, AcceptInvite ]
   end
 
   # Saludar
