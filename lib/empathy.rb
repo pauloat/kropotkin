@@ -12,7 +12,7 @@ class Empathy
     Timer(rand(10), shots: 1) { m.channel.action "abraza a #{m.user.nick} :)" }
   end
 
-  match /\\o\//, use_prefix: false, method: :cheer
+  match /(^|\s)\\o\//i, use_prefix: false, method: :cheer
   def cheer(m)
     m.reply "\o/"
   end
