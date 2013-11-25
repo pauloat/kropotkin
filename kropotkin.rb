@@ -16,8 +16,8 @@ kropotkin = Cinch::Bot.new do
   end
 
   # Saludar
-  on :message, /(\\o\/|\\o|o\/)/i do |m|
-    m.reply "o/"
+  on :message, /(\s|^)(\\o|o\/)/i do |m|
+    m.reply ["o/", '\o'].sample
   end
 
   on :message, /bug/ do |m|
