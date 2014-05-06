@@ -18,7 +18,7 @@ class UrlTitle
       uri = URI(url)
 
 # Tomamos la extensión, si la tiene nos fijamos si está permitida
-      ext = url.scan(/\.([a-z0-9]+)([?#].*)$/)
+      ext = url.scan(/\.([a-z0-9]+)([?#].*)?$/)
 
       return if not ext.nil? and not ext.empty? and not [ '.htm', '.php', '.asp', '.html' ].include? ext.first.first
 
