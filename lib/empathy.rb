@@ -14,7 +14,6 @@ class Empathy
 
   match /\\o\//, use_prefix: false, method: :cheer
   def cheer(m)
-    m.reply "\o/"
+    m.reply '\o/'
   end
-
 end
