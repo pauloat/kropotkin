@@ -16,11 +16,6 @@ kropotkin = Cinch::Bot.new do
     c.plugins.plugins = [ Empathy, UrlTitle, AcceptInvite, Adhocracia ]
   end
 
-  # Saludar
-  on :message, /^o\// do |m|
-    m.reply "o/"
-  end
-
   on :message, /bug/ do |m|
     m.reply "patches welcome", true
   end

@@ -16,4 +16,10 @@ class Empathy
   def cheer(m)
     m.reply '\o/'
   end
+
+  match /^o\//, use_prefix: false, method: :greet
+  # Saludar
+  def greet(m)
+    m.reply "o/"
+  end
 end
